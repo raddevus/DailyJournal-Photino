@@ -47,7 +47,7 @@ namespace HelloPhotinoApp
                         return;
                     }
                     
-                    WindowMessage wm = JsonSerializer.Deserialize<WindowMessage>(message);
+                    WindowMessage? wm = JsonSerializer.Deserialize<WindowMessage>(message);
 
                     if (wm == null){
                         return;
