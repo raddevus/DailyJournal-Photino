@@ -48,11 +48,15 @@ namespace HelloPhotinoApp
                     }
                     
                     WindowMessage wm = JsonSerializer.Deserialize<WindowMessage>(message);
+
+                    if (wm == null){
+                        return;
+                    }
                     
-                    switch(wm?.Command){
+                    switch(wm.Command){
                         case "getUserProfile":{
                             wm.Parameters = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                            window.SendWebMessage(JsonSerializer.Serialize(wm));
+                            window?.SendWebMessage(JsonSerializer.Serialize(wm));
                             break;
                         }
                         default :{
@@ -62,7 +66,7 @@ namespace HelloPhotinoApp
 
                             // Send a message back the to JavaScript event handler.
                             // "window.external.receiveMessage(callback: Function)"
-                            window.SendWebMessage(JsonSerializer.Serialize(wm));
+                            window?.SendWebMessage(JsonSerializer.Serialize(wm));
                                 break;
                             }
                     }
