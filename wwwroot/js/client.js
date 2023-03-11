@@ -8,6 +8,7 @@ function callDotNet() {
     message.Command = "getCurrentDirectory";
     message.Parameters = "";
     sMessage = JSON.stringify(message);
+ 
     callApi(sMessage);
 }
 

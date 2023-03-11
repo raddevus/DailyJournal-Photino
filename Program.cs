@@ -43,14 +43,24 @@ namespace HelloPhotinoApp
                     }
                     
                     switch(wm.Command){
-                        case "getUserProfile":{
-                            wm.Parameters = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                            window?.SendWebMessage(JsonSerializer.Serialize(wm));
+                        case "createYMDir":{
+                            var currentDir = Environment.CurrentDirectory;
+                            Directory.CreateDirectory(Path.Combine(currentDir,DateTime.Now.ToString("yyyy-MM")));
                             break;
                         }
                         case "getCurrentDirectory":{
                             wm.Parameters = Environment.CurrentDirectory;
                             window?.SendWebMessage(JsonSerializer.Serialize(wm));
+                            break;
+                        }
+                        case "getUserProfile":{
+                            wm.Parameters = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                            window?.SendWebMessage(JsonSerializer.Serialize(wm));
+                            break;
+                        }
+                        case "saveEntryData":{
+                            var entry = new Entry( wm.AllParameters[0], wm.AllParameters[1]);
+                            entry.Save();
                             break;
                         }
                         default :{
