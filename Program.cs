@@ -48,6 +48,11 @@ namespace HelloPhotinoApp
                             window?.SendWebMessage(JsonSerializer.Serialize(wm));
                             break;
                         }
+                        case "getCurrentDirectory":{
+                            wm.Parameters = Environment.CurrentDirectory;
+                            window?.SendWebMessage(JsonSerializer.Serialize(wm));
+                            break;
+                        }
                         default :{
                             // The message argument is coming in from sendMessage.
                             // "window.external.sendMessage(message: string)"

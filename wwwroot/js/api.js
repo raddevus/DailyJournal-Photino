@@ -1,8 +1,5 @@
-function callApi(){
-    let message = {}; // create basic object
-    message.Command = "getUserProfile";
-    message.Parameters = "";
-    let sMessage = JSON.stringify(message);
+function callApi(sMessage){
+    
     console.log(sMessage);
     window.external.sendMessage(sMessage);
 }
@@ -14,8 +11,13 @@ function initApi(){
       switch (response.Command){
           case "getUserProfile":{
              alert(`user home is: ${response.Parameters}`);
-             document.querySelector("#output").innerHTML = `${response.Parameters}`;
+             //document.querySelector("#output").innerHTML = `${response.Parameters}`;
              break;
+          }
+          case "getCurrentDirectory":{
+            alert(`current directory is: ${response.Parameters}`);
+            //document.querySelector("#output").innerHTML = `${response.Parameters}`;
+            break;
           }
           default:{
               alert(response.Parameters);
