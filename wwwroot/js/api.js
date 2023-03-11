@@ -4,6 +4,11 @@ function callApi(sMessage){
     window.external.sendMessage(sMessage);
 }
 
+function initializeApp(){
+    initApi();
+
+}
+
 function initApi(){
     window.external.receiveMessage(response => {
   
