@@ -20,7 +20,9 @@ class Entry{
 
     public bool Save(){
         try{
-        File.AppendAllText(Path.Combine(EntryFolder,EntryFile),Data);
+            var targetFile = Path.Combine(EntryFolder,EntryFile);
+            File.Delete(targetFile);
+            File.AppendAllText(targetFile,Data);
         }
         catch{
             return false;

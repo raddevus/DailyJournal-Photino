@@ -58,14 +58,19 @@ function initApi(){
   
       response = JSON.parse(response);
       switch (response.Command){
-          case "getUserProfile":{
+        case "getCurrentDirectory":{
+          alert(`current directory is: ${response.Parameters}`);
+          //document.querySelector("#output").innerHTML = `${response.Parameters}`;
+          break;
+        }  
+        case "getUserProfile":{
              alert(`user home is: ${response.Parameters}`);
              //document.querySelector("#output").innerHTML = `${response.Parameters}`;
              break;
           }
-          case "getCurrentDirectory":{
-            alert(`current directory is: ${response.Parameters}`);
-            //document.querySelector("#output").innerHTML = `${response.Parameters}`;
+          case "loadEntryData":{
+            alert(`loadEntryData : ${response.Parameters}`);
+            document.querySelector("#dailyNotes").value = response.Parameters;
             break;
           }
           default:{
