@@ -33,6 +33,7 @@ function saveEntryData(){
 
 function initializeApp(){
     initApi();
+    setCurrentDate();
     createYMDirectory();
 }
 
@@ -57,6 +58,10 @@ function initApi(){
           }
       }
     });
+  }
+
+  function setCurrentDate(){
+    document.querySelector("#entryDate").valueAsDate = new Date();
   }
 
   Date.prototype.yyyymmdd = function() {
