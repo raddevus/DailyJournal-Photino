@@ -32,6 +32,13 @@ public class MainMessageHandler{
                 window?.SendWebMessage(JsonSerializer.Serialize(wm));
                 break;
             }
+            case "loadEntryData":{
+                
+                var localEntry = new Entry(wm.Parameters, String.Empty);
+                var entryData = localEntry.Read();
+                Console.WriteLine(entryData);
+                break;
+            }
             case "saveEntryData":{
                 var entry = new Entry( wm.AllParameters[0], wm.AllParameters[1]);
                 entry.Save();

@@ -1,3 +1,5 @@
+let today;
+
 function callApi(sMessage){
     
     console.log(sMessage);
@@ -31,10 +33,24 @@ function saveEntryData(){
     callApi(sMessage);
 }
 
+function loadEntry(){
+  alert(today.yyyymmdd());
+  let message = {}; // create basic object
+    message.Command = "loadEntryData";
+    // Create all parameters as array
+    let allParameters = [];
+    allParameters.push(today.yyyymmdd());
+    // Call join on array to pass all parameters as a comma-delimited string
+    message.Parameters = allParameters.join();
+    let sMessage = JSON.stringify(message);
+    callApi(sMessage);
+}
+
 function initializeApp(){
     initApi();
     setCurrentDate();
     createYMDirectory();
+    loadEntry();
 }
 
 function initApi(){
@@ -61,12 +77,17 @@ function initApi(){
   }
 
   function setCurrentDate(){
-    document.querySelector("#entryDate").valueAsDate = new Date();
+    today = new Date();
+    document.querySelector("#entryDate").valueAsDate = today;
   }
 
-  Date.prototype.yyyymmdd = function() {
+  Date.prototype.yyyymmdd = function(isDash=true) {
     var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
     var dd = this.getDate().toString();
-  
-    return [this.getFullYear() + "-", mm.length===2 ? '' : '0', mm + "-", dd.length===2 ? '' : '0', dd].join(''); // padding
+    if (isDash){
+      return [this.getFullYear() + "-", mm.length===2 ? '' : '0', mm + "-", dd.length===2 ? '' : '0', dd].join(''); // padding
+    }
+    else{
+      return [this.getFullYear() + "/", mm.length===2 ? '' : '0', mm + "/", dd.length===2 ? '' : '0', dd].join(''); // padding
+    }
   };

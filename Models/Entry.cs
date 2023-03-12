@@ -27,4 +27,12 @@ class Entry{
         }
         return true;
     }
+
+    public String Read(){
+        try{
+            return File.ReadAllText(Path.Combine(EntryFolder,EntryFile));
+        }
+        catch{Console.WriteLine($"couldn't read data from {Path.Combine(EntryFolder,EntryFile)} ");
+        return String.Empty;}
+    }
 }
