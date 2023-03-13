@@ -17,7 +17,7 @@ function createYMDirectory(){
 
 function saveEntryData(){
     console.log("in saveEntryData()...");
-    let entryDate =  new Date().yyyymmdd();
+    let entryDate =  today.yyyymmdd();
     let entryData = document.querySelector("#dailyNotes").value;
 
     let message = {}; // create basic object
