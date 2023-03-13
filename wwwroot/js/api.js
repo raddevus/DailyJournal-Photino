@@ -97,6 +97,7 @@ function initApi(){
     // empty out the textarea in prep for any data that may load.
     document.querySelector("#dailyNotes").value = "";
     loadEntry();
+    document.querySelector("#dailyNotes").focus();
   }
 
   Date.prototype.yyyymmdd = function(isDash=true) {
