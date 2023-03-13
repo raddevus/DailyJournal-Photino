@@ -29,13 +29,10 @@ function saveEntryData(){
     // Call join on array to pass all parameters as a comma-delimited string
     message.Parameters = allParameters.join();
     let sMessage = JSON.stringify(message);
-    alert(sMessage);
     callApi(sMessage);
 }
 
-function loadEntry(){
-  alert(`loadEntry  - ${today}`);
-  
+function loadEntry(){  
   let message = {}; // create basic object
     message.Command = "loadEntryData";
     // Create all parameters as array
@@ -70,7 +67,6 @@ function initApi(){
              break;
           }
           case "loadEntryData":{
-            alert(`loadEntryData : ${response.Parameters}`);
             document.querySelector("#dailyNotes").value = response.Parameters;
             break;
           }
@@ -84,16 +80,14 @@ function initApi(){
 
   function setCurrentDate(){
     today = new Date();
-    alert(`setcurrentDate ${today}`);
     document.querySelector("#entryDate").valueAsDate = today;
   }
 
   function dateChanged(currentDate){
-    alert(`date changed! ${currentDate}`)
-    alert(`new Date() : ${new Date(currentDate)}`);
+    
     // to get the date set properly you have to had T00:00:00
     today = new Date(`${currentDate}T00:00:00`);
-    alert(`dateChanged ${today}`);
+   
     // empty out the textarea in prep for any data that may load.
     document.querySelector("#dailyNotes").value = "";
     loadEntry();
