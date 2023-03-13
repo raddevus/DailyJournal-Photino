@@ -34,7 +34,8 @@ function saveEntryData(){
 }
 
 function loadEntry(){
-  alert(today.yyyymmdd());
+  alert(`loadEntry  - ${today}`);
+  
   let message = {}; // create basic object
     message.Command = "loadEntryData";
     // Create all parameters as array
@@ -83,7 +84,19 @@ function initApi(){
 
   function setCurrentDate(){
     today = new Date();
+    alert(`setcurrentDate ${today}`);
     document.querySelector("#entryDate").valueAsDate = today;
+  }
+
+  function dateChanged(currentDate){
+    alert(`date changed! ${currentDate}`)
+    alert(`new Date() : ${new Date(currentDate)}`);
+    // to get the date set properly you have to had T00:00:00
+    today = new Date(`${currentDate}T00:00:00`);
+    alert(`dateChanged ${today}`);
+    // empty out the textarea in prep for any data that may load.
+    document.querySelector("#dailyNotes").value = "";
+    loadEntry();
   }
 
   Date.prototype.yyyymmdd = function(isDash=true) {
