@@ -32,7 +32,12 @@ class Entry{
 
     public String Read(){
         try{
-            return File.ReadAllText(Path.Combine(EntryFolder,EntryFile));
+            var currentDateFile = Path.Combine(EntryFolder,EntryFile);
+            if (File.Exists(currentDateFile)){
+                return File.ReadAllText(currentDateFile);
+            }
+            Console.WriteLine($"An entry doesn't exist yet for {Path.Combine(EntryFolder,EntryFile)} ");
+            return String.Empty;
         }
         catch{Console.WriteLine($"couldn't read data from {Path.Combine(EntryFolder,EntryFile)} ");
         return String.Empty;}

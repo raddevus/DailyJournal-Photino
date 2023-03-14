@@ -41,6 +41,15 @@ public class MainMessageHandler{
                 window?.SendWebMessage(JsonSerializer.Serialize(wm));
                 break;
             }
+            case "loadMonthlyEntries":{
+                var localEntry = new Entry(wm.Parameters, String.Empty);
+                String [] allFiles = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory,localEntry.EntryFolder));
+                String filesDelimited = String.Join(",",allFiles.Select(item => item ));
+                wm.AllParameters = allFiles;
+                wm.Parameters = filesDelimited;
+                window?.SendWebMessage(JsonSerializer.Serialize(wm));
+                break;
+            }
             case "saveEntryData":{
                 var entry = new Entry( wm.AllParameters[0], wm.AllParameters[1]);
                 entry.Save();

@@ -34,14 +34,27 @@ function saveEntryData(){
 
 function loadEntry(){  
   let message = {}; // create basic object
-    message.Command = "loadEntryData";
-    // Create all parameters as array
-    let allParameters = [];
-    allParameters.push(today.yyyymmdd());
-    // Call join on array to pass all parameters as a comma-delimited string
-    message.Parameters = allParameters.join();
-    let sMessage = JSON.stringify(message);
-    callApi(sMessage);
+  message.Command = "loadEntryData";
+  // Create all parameters as array
+  let allParameters = [];
+  allParameters.push(today.yyyymmdd());
+  // Call join on array to pass all parameters as a comma-delimited string
+  message.Parameters = allParameters.join();
+  let sMessage = JSON.stringify(message);
+  callApi(sMessage);
+}
+
+function loadMonthlyEntries(){
+  let message = {}; // create basic object
+  message.Command = "loadMonthlyEntries";
+  // Create all parameters as array
+  let allParameters = [];
+  allParameters.push(today.yyyymmdd());
+  // Call join on array to pass all parameters as a comma-delimited string
+  message.Parameters = allParameters.join();
+  let sMessage = JSON.stringify(message);
+  callApi(sMessage);
+
 }
 
 function initializeApp(){
@@ -49,6 +62,7 @@ function initializeApp(){
     setCurrentDate();
     createYMDirectory();
     loadEntry();
+    loadMonthlyEntries();
 }
 
 function initApi(){
@@ -70,6 +84,14 @@ function initApi(){
             document.querySelector("#dailyNotes").value = response.Parameters;
             break;
           }
+          case "loadMonthlyEntries":{
+            alert(`got : ${response.AllParameters}`);
+            // We've passed the Array (AllParameters) and it has been
+            // Parsed into a JS array at this point.
+            let allFiles = response.AllParameters;
+            initMonthlyEntrySelect(allFiles);
+            break;
+          }
           default:{
               alert(response.Parameters);
               break;
@@ -81,6 +103,15 @@ function initApi(){
   function setCurrentDate(){
     today = new Date();
     document.querySelector("#entryDate").valueAsDate = today;
+  }
+
+  function initMonthlyEntrySelect(allFiles){
+    //alert(allFiles[0].substring(allFiles[0].lastIndexOf(`/`)+1,allFiles[0].lastIndexOf(`.`)));
+    allFiles.map(filePath => {
+     let currentFile = filePath.substring(filePath.lastIndexOf(`/`)+1,filePath.lastIndexOf(`.`));
+      var localOption = new Option(currentFile, filePath, false, true);
+		  document.querySelector('#monthEntryList').append(localOption );
+    });
   }
 
   function dateChanged(currentDate){
