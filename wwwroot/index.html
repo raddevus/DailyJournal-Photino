@@ -26,8 +26,8 @@
                         <div class="row align-items-start">
                           <div class="col col-sm-3 debug-border">
                             <input type="date" id="entryDate" name="entryDate" onchange="dateChanged(this.value)">
-                            <div>Monthly Entries</div>
-                            <select id="monthEntryList" size="7"><option>test</option><option>test2</option></select>
+                            <div id="monthEntriesHeader">Monthly Entries</div>
+                            <select id="monthEntryList" size="7" onchange="monthEntryChangeHandler(this)"></select>
                           </div>
                           <div class="col col-sm-9 debug-border2">
                             <textarea class="w-100" id="dailyNotes" autofocus></textarea>

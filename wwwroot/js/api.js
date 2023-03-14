@@ -85,7 +85,6 @@ function initApi(){
             break;
           }
           case "loadMonthlyEntries":{
-            alert(`got : ${response.AllParameters}`);
             // We've passed the Array (AllParameters) and it has been
             // Parsed into a JS array at this point.
             let allFiles = response.AllParameters;
@@ -106,12 +105,20 @@ function initApi(){
   }
 
   function initMonthlyEntrySelect(allFiles){
-    //alert(allFiles[0].substring(allFiles[0].lastIndexOf(`/`)+1,allFiles[0].lastIndexOf(`.`)));
+    let monthListCtrl = document.querySelector("#monthEntryList");
     allFiles.map(filePath => {
      let currentFile = filePath.substring(filePath.lastIndexOf(`/`)+1,filePath.lastIndexOf(`.`));
       var localOption = new Option(currentFile, filePath, false, true);
-		  document.querySelector('#monthEntryList').append(localOption );
+		  monthListCtrl.append(localOption );
     });
+    monthListCtrl.selectedIndex = -1;
+  }
+
+  function monthEntryChangeHandler(filePath){
+    let selectedDate = filePath.options[filePath.selectedIndex].text;
+    today = new Date(`${selectedDate}T00:00:00`);
+    loadEntry();
+    document.querySelector("#entryDate").valueAsDate = today;
   }
 
   function dateChanged(currentDate){
@@ -123,6 +130,7 @@ function initApi(){
     document.querySelector("#dailyNotes").value = "";
     loadEntry();
     document.querySelector("#dailyNotes").focus();
+    document.querySelector("#monthEntryList").selectedIndex = -1;
   }
 
   Date.prototype.yyyymmdd = function(isDash=true) {

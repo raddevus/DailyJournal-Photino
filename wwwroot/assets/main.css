@@ -12,6 +12,7 @@ body {
 }
 
 #monthEntryList{width:100%;}
+#monthEntriesHeader{color:darkblue;font-weight:bold;}
 
 .debug-border{border:turquoise;border-style:dashed;border-width: 3px;}
 .debug-border2{border:orange;border-style:dotted;border-width: 3px;}
