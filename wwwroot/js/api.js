@@ -106,6 +106,7 @@ function initApi(){
 
   function initMonthlyEntrySelect(allFiles){
     let monthListCtrl = document.querySelector("#monthEntryList");
+    
     allFiles.map(filePath => {
      let currentFile = filePath.substring(filePath.lastIndexOf(`/`)+1,filePath.lastIndexOf(`.`));
       var localOption = new Option(currentFile, filePath, false, true);
@@ -130,7 +131,11 @@ function initApi(){
     document.querySelector("#dailyNotes").value = "";
     loadEntry();
     document.querySelector("#dailyNotes").focus();
-    document.querySelector("#monthEntryList").selectedIndex = -1;
+    
+    // remove all the current items in the monthentrylist
+    let monthListOptions = document.querySelectorAll("#monthEntryList option");
+    monthListOptions.forEach(option => option.remove());
+
     loadMonthlyEntries();
   }
 
