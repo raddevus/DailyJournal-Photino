@@ -1,4 +1,5 @@
 let today;
+let dirSeparator = null;
 
 function callApi(sMessage){
     
@@ -54,12 +55,21 @@ function loadMonthlyEntries(){
   message.Parameters = allParameters.join();
   let sMessage = JSON.stringify(message);
   callApi(sMessage);
+}
 
+function loadPathSeparator(){  
+  let message = {}; // create basic object
+  message.Command = "getDirSeparator";
+  // No parameters required
+  message.Parameters = "null";
+  let sMessage = JSON.stringify(message);
+  callApi(sMessage);
 }
 
 function initializeApp(){
     initApi();
     setCurrentDate();
+    loadPathSeparator();
     createYMDirectory();
     loadEntry();
     loadMonthlyEntries();
@@ -75,6 +85,12 @@ function initApi(){
           //document.querySelector("#output").innerHTML = `${response.Parameters}`;
           break;
         }  
+        case "getDirSeparator":{
+          
+          dirSeparator = `${response.Parameters}`;
+          
+          break;
+        }
         case "getUserProfile":{
              alert(`user home is: ${response.Parameters}`);
              //document.querySelector("#output").innerHTML = `${response.Parameters}`;
@@ -108,7 +124,7 @@ function initApi(){
     let monthListCtrl = document.querySelector("#monthEntryList");
     
     allFiles.map(filePath => {
-     let currentFile = filePath.substring(filePath.lastIndexOf(`/`)+1,filePath.lastIndexOf(`.`));
+     let currentFile = filePath.substring(filePath.lastIndexOf(dirSeparator)+1,filePath.lastIndexOf(`.`));
       var localOption = new Option(currentFile, filePath, false, true);
 		  monthListCtrl.append(localOption );
     });

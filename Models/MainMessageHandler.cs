@@ -27,6 +27,13 @@ public class MainMessageHandler{
                 window?.SendWebMessage(JsonSerializer.Serialize(wm));
                 break;
             }
+            case "getDirSeparator":{
+                // Path seperators on diff OSes are not the same
+                // This is a helper method to handle that.
+                wm.Parameters = System.IO.Path.DirectorySeparatorChar.ToString();
+                window?.SendWebMessage(JsonSerializer.Serialize(wm));
+                break;
+            }
             case "getUserProfile":{
                 wm.Parameters = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
                 window?.SendWebMessage(JsonSerializer.Serialize(wm));
