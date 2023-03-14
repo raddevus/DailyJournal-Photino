@@ -43,11 +43,17 @@ public class MainMessageHandler{
             }
             case "loadMonthlyEntries":{
                 var localEntry = new Entry(wm.Parameters, String.Empty);
-                String [] allFiles = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory,localEntry.EntryFolder));
-                String filesDelimited = String.Join(",",allFiles.Select(item => item ));
-                wm.AllParameters = allFiles;
-                wm.Parameters = filesDelimited;
-                window?.SendWebMessage(JsonSerializer.Serialize(wm));
+                var monthPath = Path.Combine(Environment.CurrentDirectory,localEntry.EntryFolder);
+                // If there is no month folder YYYY-MM because an entry has never
+                // been created for this month, then there are no monthly files to load
+                // so we don't do anything.
+                if (Directory.Exists(monthPath)){
+                    String [] allFiles = Directory.GetFiles(monthPath);
+                    String filesDelimited = String.Join(",",allFiles.Select(item => item ));
+                    wm.AllParameters = allFiles;
+                    wm.Parameters = filesDelimited;
+                    window?.SendWebMessage(JsonSerializer.Serialize(wm));
+                }
                 break;
             }
             case "saveEntryData":{

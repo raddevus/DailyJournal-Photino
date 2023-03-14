@@ -131,6 +131,7 @@ function initApi(){
     loadEntry();
     document.querySelector("#dailyNotes").focus();
     document.querySelector("#monthEntryList").selectedIndex = -1;
+    loadMonthlyEntries();
   }
 
   Date.prototype.yyyymmdd = function(isDash=true) {
