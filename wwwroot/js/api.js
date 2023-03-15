@@ -103,8 +103,15 @@ function initApi(){
           case "loadMonthlyEntries":{
             // We've passed the Array (AllParameters) and it has been
             // Parsed into a JS array at this point.
+            // remove all the current items in the monthentrylist
+            let monthListOptions = document.querySelectorAll("#monthEntryList option");
+            monthListOptions.forEach(option => option.remove());
             let allFiles = response.AllParameters;
             initMonthlyEntrySelect(allFiles);
+            break;
+          }
+          case "saveEntryData":{
+            loadMonthlyEntries();
             break;
           }
           default:{
@@ -147,10 +154,6 @@ function initApi(){
     document.querySelector("#dailyNotes").value = "";
     loadEntry();
     document.querySelector("#dailyNotes").focus();
-    
-    // remove all the current items in the monthentrylist
-    let monthListOptions = document.querySelectorAll("#monthEntryList option");
-    monthListOptions.forEach(option => option.remove());
 
     loadMonthlyEntries();
   }

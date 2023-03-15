@@ -66,6 +66,7 @@ public class MainMessageHandler{
             case "saveEntryData":{
                 var entry = new Entry( wm.AllParameters[0], wm.AllParameters[1]);
                 entry.Save();
+                window?.SendWebMessage(JsonSerializer.Serialize(wm));
                 break;
             }
             default :{
