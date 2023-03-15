@@ -122,7 +122,7 @@ function initApi(){
 
   function initMonthlyEntrySelect(allFiles){
     let monthListCtrl = document.querySelector("#monthEntryList");
-    
+    sortDateEntries(allFiles);
     allFiles.map(filePath => {
      let currentFile = filePath.substring(filePath.lastIndexOf(dirSeparator)+1,filePath.lastIndexOf(`.`));
       var localOption = new Option(currentFile, filePath, false, true);
@@ -153,6 +153,13 @@ function initApi(){
     monthListOptions.forEach(option => option.remove());
 
     loadMonthlyEntries();
+  }
+
+  function sortDateEntries(allDates){
+    allDates.sort((x, y) => {
+      // to change to descending order switch "<" for ">"
+      return x.toLowerCase() > y.toLowerCase();
+    });
   }
 
   Date.prototype.yyyymmdd = function(isDash=true) {
