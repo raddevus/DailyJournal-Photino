@@ -1,6 +1,16 @@
 let today;
 let dirSeparator = null;
 
+document.querySelector("html").addEventListener("keydown", (event) => {
+  // alert(`ctrlkey : ${event.ctrlKey}`);
+  
+  if (event.ctrlKey ) {
+    if (event.code == "KeyS"){
+    saveEntryData();
+    }
+  }
+});
+
 function callApi(sMessage){
     
     console.log(sMessage);
@@ -112,6 +122,7 @@ function initApi(){
           }
           case "saveEntryData":{
             loadMonthlyEntries();
+            document.querySelector("#dailyNotes").focus();
             break;
           }
           default:{
