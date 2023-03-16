@@ -67,7 +67,7 @@ function loadMonthlyEntries(){
   callApi(sMessage);
 }
 
-function loadPathSeparator(){  
+function loadDirSeparator(){  
   let message = {}; // create basic object
   message.Command = "getDirSeparator";
   // No parameters required
@@ -77,22 +77,21 @@ function loadPathSeparator(){
 }
 
 function initializeApp(){
-    initApi();
+    initMessageHandler();
     setCurrentDate();
-    loadPathSeparator();
+    loadDirSeparator();
     createYMDirectory();
     loadEntry();
     loadMonthlyEntries();
 }
 
-function initApi(){
+function initMessageHandler(){
     window.external.receiveMessage(response => {
   
       response = JSON.parse(response);
       switch (response.Command){
         case "getCurrentDirectory":{
           alert(`current directory is: ${response.Parameters}`);
-          //document.querySelector("#output").innerHTML = `${response.Parameters}`;
           break;
         }  
         case "getDirSeparator":{
@@ -103,7 +102,6 @@ function initApi(){
         }
         case "getUserProfile":{
              alert(`user home is: ${response.Parameters}`);
-             //document.querySelector("#output").innerHTML = `${response.Parameters}`;
              break;
           }
           case "loadEntryData":{
