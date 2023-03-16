@@ -2,8 +2,6 @@ let today;
 let dirSeparator = null;
 
 document.querySelector("html").addEventListener("keydown", (event) => {
-  // alert(`ctrlkey : ${event.ctrlKey}`);
-  
   if (event.ctrlKey ) {
     if (event.code == "KeyS"){
     saveEntryData();
@@ -11,8 +9,15 @@ document.querySelector("html").addEventListener("keydown", (event) => {
   }
 });
 
-function callApi(sMessage){
-    
+function initializeApp(){
+  initMessageHandler();
+  setCurrentDate();
+  loadDirSeparator();
+  loadEntry();
+  loadMonthlyEntries();
+}
+
+function sendMessage(sMessage){
     console.log(sMessage);
     window.external.sendMessage(sMessage);
 }
@@ -23,7 +28,7 @@ function createYMDirectory(){
     message.Command = "createYMDir";
     message.Parameters = "";
     let sMessage = JSON.stringify(message);
-    callApi(sMessage);
+    sendMessage(sMessage);
 }
 
 function saveEntryData(){
@@ -40,7 +45,7 @@ function saveEntryData(){
     // Call join on array to pass all parameters as a comma-delimited string
     message.Parameters = allParameters.join();
     let sMessage = JSON.stringify(message);
-    callApi(sMessage);
+    sendMessage(sMessage);
 }
 
 function loadEntry(){  
@@ -52,7 +57,7 @@ function loadEntry(){
   // Call join on array to pass all parameters as a comma-delimited string
   message.Parameters = allParameters.join();
   let sMessage = JSON.stringify(message);
-  callApi(sMessage);
+  sendMessage(sMessage);
 }
 
 function loadMonthlyEntries(){
@@ -64,7 +69,7 @@ function loadMonthlyEntries(){
   // Call join on array to pass all parameters as a comma-delimited string
   message.Parameters = allParameters.join();
   let sMessage = JSON.stringify(message);
-  callApi(sMessage);
+  sendMessage(sMessage);
 }
 
 function loadDirSeparator(){  
@@ -73,16 +78,7 @@ function loadDirSeparator(){
   // No parameters required
   message.Parameters = "null";
   let sMessage = JSON.stringify(message);
-  callApi(sMessage);
-}
-
-function initializeApp(){
-    initMessageHandler();
-    setCurrentDate();
-    loadDirSeparator();
-    createYMDirectory();
-    loadEntry();
-    loadMonthlyEntries();
+  sendMessage(sMessage);
 }
 
 function initMessageHandler(){
