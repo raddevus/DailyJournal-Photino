@@ -61,6 +61,9 @@ function loadEntry(){
 }
 
 function loadMonthlyEntries(){
+  // remove all the current items in the monthentrylist
+  let monthListOptions = document.querySelectorAll("#monthEntryList option");
+  monthListOptions.forEach(option => option.remove());
   let message = {}; // create basic object
   message.Command = "loadMonthlyEntries";
   // Create all parameters as array
@@ -107,9 +110,7 @@ function initMessageHandler(){
           case "loadMonthlyEntries":{
             // We've passed the Array (AllParameters) and it has been
             // Parsed into a JS array at this point.
-            // remove all the current items in the monthentrylist
-            let monthListOptions = document.querySelectorAll("#monthEntryList option");
-            monthListOptions.forEach(option => option.remove());
+            
             let allFiles = response.AllParameters;
             initMonthlyEntrySelect(allFiles);
             break;
